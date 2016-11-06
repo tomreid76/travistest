@@ -5,16 +5,23 @@ const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST;
 
 if (isPullRequest) {
-  console.log('Pull request build build run. Skipping tagging operation...');
+  console.log('Pull request build run. Skipping tagging operation...');
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     //autobump
-    cp.execSync('npm version patch');
-    const NEW_VERSION = require('./package.json').version;
-    console.error('Auto bumping minor from ' + CURRENT_VERSION + ' to ' + NEW_VERSION);
+    cp.exec('npm version patch -m \"Travis Autobump\"', { encoding: 'utf8' }, (error, stdout, stderr) => {
+      if (error) {
+        console.log('Something went wrong, aborting', stderr);
+        process.exit(1);
+      }
+      const NEW_VERSION = stdout.trim();
+      console.log('Auto bumping minor from ' + CURRENT_VERSION + ' to ' + NEW_VERSION);
+      cp.execSync('git push origin master --tags');
+    });
+    
     //process.exit(1);
   } else {
-    console.log('Manual bump here from ' + CURRENT_VERSION);
+    console.log('Manual bump here from ' + PREVIOUS_VERSION + ' to ' + CURRENT_VERSION);
   }
 }
 
