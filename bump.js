@@ -19,13 +19,13 @@ if (isPullRequest) {
         process.exit(1);
       }
       const NEW_VERSION = stdout.trim();
-      console.log(`Auto bumping minor from ${CURRENT_VERSION} to ${NEW_VERSION}`);
+      console.log(`Auto bumping patch from ${CURRENT_VERSION} to ${NEW_VERSION}`);
       cp.execSync(`git push origin master --tags`);
     });
     
     //process.exit(1);
   } else {
-    console.log('Manual bump here from ' + PREVIOUS_VERSION + ' to ' + CURRENT_VERSION);
+    console.log(`Manual bump here from ${PREVIOUS_VERSION} to ${CURRENT_VERSION}`);
     cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
     cp.execSync(`git push origin master --tags`);
   }
