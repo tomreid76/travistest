@@ -2,7 +2,11 @@ const cp = require('child_process');
 
 const CURRENT_VERSION = `v${require('./package.json').version}`;
 const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf8' }).trim();
-const isPullRequest = JSON.parse(process.env.TRAVIS_PULL_REQUEST);
+const isPullRequest = process.env.TRAVIS_PULL_REQUEST && JSON.parse(process.env.TRAVIS_PULL_REQUEST);
+
+//cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
+//cp.execSync(`git config --global user.name "TravisCI"`);
+
 
 if (isPullRequest) {
   console.log(process.env);
@@ -10,8 +14,6 @@ if (isPullRequest) {
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     //autobump
-    cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
-    cp.execSync(`git config --global user.name "TravisCI"`);
     cp.exec('npm version patch -m \"Travis Autobump [skip ci]\"', { encoding: 'utf8' }, (error, stdout, stderr) => {
       if (error) {
         console.log('Something went wrong, aborting', stderr);
@@ -25,6 +27,8 @@ if (isPullRequest) {
     //process.exit(1);
   } else {
     console.log('Manual bump here from ' + PREVIOUS_VERSION + ' to ' + CURRENT_VERSION);
+    cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
+    cp.execSync(`git push origin master --tags"`);
   }
 }
 
