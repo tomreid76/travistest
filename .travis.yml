@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "6.8.1"
+
+cache:
+  directories:
+    - node_modules
+
+branches:
+  only:
+    - master
+
+sudo: false
+
+notifications:
+  email:
+    recipients:
+      - tomreid76@gmail.com
+
+    # change is when the repo status goes from pass to fail or vice versa
+    on_success: change
+    on_failure: always
