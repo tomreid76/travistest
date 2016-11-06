@@ -9,7 +9,6 @@ const isPullRequest = process.env.TRAVIS_PULL_REQUEST && JSON.parse(process.env.
 
 
 if (isPullRequest) {
-  console.log(process.env);
   console.log('Pull request build run. Skipping tagging operation...');
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
@@ -28,7 +27,7 @@ if (isPullRequest) {
   } else {
     console.log('Manual bump here from ' + PREVIOUS_VERSION + ' to ' + CURRENT_VERSION);
     cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
-    cp.execSync(`git push origin master --tags"`);
+    cp.execSync(`git push origin master --tags`);
   }
 }
 
