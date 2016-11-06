@@ -10,6 +10,8 @@ if (isPullRequest) {
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     //autobump
+    cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
+    cp.execSync(`git config --global user.name "TravisCI"`);
     cp.exec('npm version patch -m \"Travis Autobump [skip ci]\"', { encoding: 'utf8' }, (error, stdout, stderr) => {
       if (error) {
         console.log('Something went wrong, aborting', stderr);
@@ -17,8 +19,6 @@ if (isPullRequest) {
       }
       const NEW_VERSION = stdout.trim();
       console.log(`Auto bumping minor from ${CURRENT_VERSION} to ${NEW_VERSION}`);
-      cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
-      cp.execSync(`git config --global user.name "TravisCI"`);
       cp.execSync(`git push origin master --tags`);
     });
     
