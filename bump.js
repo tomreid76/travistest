@@ -5,6 +5,7 @@ const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST;
 
 if (isPullRequest) {
+  console.log(process.env);
   console.log('Pull request build run. Skipping tagging operation...');
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
