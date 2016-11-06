@@ -1,6 +1,6 @@
 const cp = require('child_process');
 
-const CURRENT_VERSION = 'v' + require('./package.json').version;
+const CURRENT_VERSION = `v${require('./package.json').version}`;
 const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf8' }).trim();
 const isPullRequest = JSON.parse(process.env.TRAVIS_PULL_REQUEST);
 
@@ -16,8 +16,10 @@ if (isPullRequest) {
         process.exit(1);
       }
       const NEW_VERSION = stdout.trim();
-      console.log('Auto bumping minor from ' + CURRENT_VERSION + ' to ' + NEW_VERSION);
-      cp.execSync('git push origin master --tags');
+      console.log(`Auto bumping minor from ${CURRENT_VERSION} to ${NEW_VERSION}`);
+      cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
+      cp.execSync(`git config --global user.name "TravisCI"`);
+      cp.execSync(`git push origin master --tags`);
     });
     
     //process.exit(1);
