@@ -1,6 +1,6 @@
 const cp = require('child_process');
 
-const CURRENT_VERSION = require('./package.json').version;
+const CURRENT_VERSION = 'v' + require('./package.json').version;
 const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf8' }).trim();
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST;
 
@@ -9,7 +9,9 @@ if (isPullRequest) {
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     //autobump
-    console.error('Auto bumping minor from ' + CURRENT_VERSION);
+    cp.execSync('npm version patch');
+    const NEW_VERSION = require('./package.json').version;
+    console.error('Auto bumping minor from ' + CURRENT_VERSION + ' to ' + NEW_VERSION);
     //process.exit(1);
   } else {
     console.log('Manual bump here from ' + CURRENT_VERSION);
