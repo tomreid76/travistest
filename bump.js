@@ -12,9 +12,8 @@ console.log('event type: ', eventType);
 console.log('travis commit: ', process.env.TRAVIS_COMMIT);
 console.log('travis commit range: ', process.env.TRAVIS_COMMIT_RANGE);
 console.log('travis tag: ', process.env.TRAVIS_TAG);
-/*if (isPullRequest) {
-  console.log('Pull request build run. Skipping tagging operation...');
-} else {
+
+if (!isPullRequest) {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     //autobump
     cp.exec('npm version patch -m \"Travis Autobump [skip ci]\"', { encoding: 'utf8' }, (error, stdout, stderr) => {
@@ -26,14 +25,17 @@ console.log('travis tag: ', process.env.TRAVIS_TAG);
       console.log(`Auto bumping patch from ${CURRENT_VERSION} to ${NEW_VERSION}`);
       cp.execSync(`git push origin master --tags`);
     });
-    
+
     //process.exit(1);
   } else {
     console.log(`Manual bump here from ${PREVIOUS_VERSION} to ${CURRENT_VERSION}`);
     cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
     cp.execSync(`git push origin master --tags`);
   }
-}*/
+
+} else {
+  console.log('Pull request build run. Skipping tagging operation...');
+}
 
 
 
