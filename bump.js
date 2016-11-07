@@ -29,7 +29,7 @@ if (!isPullRequest) {
       }
       const NEW_VERSION = stdout.trim();
       console.log(`Auto bumping patch from ${CURRENT_VERSION} to ${NEW_VERSION}`);
-      cp.execSync(`git push origin master --tags`);
+      cp.execSync(`git push origin --tags`);
       console.log('Bump successful. New version tag pushed to master.');
     });
 
