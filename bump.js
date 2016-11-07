@@ -3,12 +3,13 @@ const cp = require('child_process');
 const CURRENT_VERSION = `v${require('./package.json').version}`;
 const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf8' }).trim();
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST && JSON.parse(process.env.TRAVIS_PULL_REQUEST);
+const eventType = process.env.TRAVIS_EVENT_TYPE;
 
 //cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
 //cp.execSync(`git config --global user.name "TravisCI"`);
 
-
-if (isPullRequest) {
+console.log('event type: ', eventType);
+/*if (isPullRequest) {
   console.log('Pull request build run. Skipping tagging operation...');
 } else {
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
@@ -29,7 +30,7 @@ if (isPullRequest) {
     cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
     cp.execSync(`git push origin master --tags`);
   }
-}
+}*/
 
 
 

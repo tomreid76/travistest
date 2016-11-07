@@ -4,7 +4,7 @@
   "description": "",
   "main": "bump.js",
   "scripts": {
-    "test": "node bump.js"
+    "test": "echo $TRAVIS_EVENT_TYPE"
   },
   "author": "",
   "license": "ISC"
