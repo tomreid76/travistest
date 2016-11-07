@@ -15,11 +15,11 @@ if (isTravis) {
   process.exit(1);
 }
 
+
 /*if not a PR. attempt bump and tag*/
-/*
 if (!isPullRequest) {
 
-  /!*package file version is equal to the last git tag version, attempt autobump of patch*!/
+  /*package file version is equal to the last git tag version, attempt autobump of patch*/
   if (PREVIOUS_VERSION === CURRENT_VERSION) {
     console.log('No version set, attempting autobump of patch...');
     cp.exec('npm version patch -m \"Travis Autobump [skip ci]\"', { encoding: 'utf8' }, (error, stdout, stderr) => {
@@ -33,7 +33,7 @@ if (!isPullRequest) {
       console.log('Bump successful. New version tag pushed to master.');
     });
 
-  /!*package version has been update, attempt tag only.*!/
+  /*package version has been update, attempt tag only.*/
   } else {
     console.log(`Manual bump here from ${PREVIOUS_VERSION} to ${CURRENT_VERSION}`);
     cp.execSync(`git tag -a ${CURRENT_VERSION} -m "Travis Autobump [skip ci]"`);
@@ -41,8 +41,8 @@ if (!isPullRequest) {
     console.log('Bump successful. New version tag pushed to master.');
   }
 
-/!*this is a PR, do nothing*!/
+/*this is a PR, do nothing*/
 } else {
   console.log('Pull request build run. Skipping tagging operation...');
 }
-*/
+
