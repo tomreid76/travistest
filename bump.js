@@ -9,6 +9,9 @@ const eventType = process.env.TRAVIS_EVENT_TYPE;
 //cp.execSync(`git config --global user.name "TravisCI"`);
 
 console.log('event type: ', eventType);
+console.log('travis commit: ', process.env.TRAVIS_COMMIT);
+console.log('travis commit range: ', process.env.TRAVIS_COMMIT_RANGE);
+console.log('travis tag: ', process.env.TRAVIS_TAG);
 /*if (isPullRequest) {
   console.log('Pull request build run. Skipping tagging operation...');
 } else {
