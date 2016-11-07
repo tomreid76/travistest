@@ -1,5 +1,5 @@
 const cp = require('child_process');
-console.log(__dirname);
+console.log(process.argv[0]);
 const CURRENT_VERSION = `v${require('../package.json').version}`;
 const PREVIOUS_VERSION = cp.execSync('git describe --abbrev=0', { encoding: 'utf8' }).trim();
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST && JSON.parse(process.env.TRAVIS_PULL_REQUEST);
