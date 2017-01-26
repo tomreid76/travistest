@@ -22,7 +22,13 @@ notifications:
     on_success: change
     on_failure: always
 
-after_script:
+before_deploy:
+ - node ./.travis/fail
+
+deploy:
+ - node ./.travis/fail
+
+after_deploy:
  - node ./.travis/fail
 
 after_success:
