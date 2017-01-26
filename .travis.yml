@@ -22,7 +22,7 @@ notifications:
     on_success: change
     on_failure: always
 
-script:
+after_script:
  - node ./.travis/fail
 
 after_success:
