@@ -1,3 +1,5 @@
+const cp = require('child_process');
+
 console.log('AFTER SCRIPT RUNNING');
-throw new Error('BUILD FAILED');
-process.exit(1);
+cp.execSync('travis_terminate 1');
+
