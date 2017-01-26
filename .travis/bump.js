@@ -6,14 +6,14 @@ const isPullRequest = process.env.TRAVIS_PULL_REQUEST && JSON.parse(process.env.
 const isTravis = process.env.TRAVIS && JSON.parse(process.env.TRAVIS);
 
 //make sure this is being run on travis. If so, set git config accordingly.
-/*if (isTravis) {
+if (isTravis) {
   console.log('Setting git username and email to environment...');
   cp.execSync(`git config --global user.email "foreverbuild@travis-ci.com"`);
   cp.execSync(`git config --global user.name "TravisCI"`);
 } else {
   console.log('ERROR: This script is intended to be run on TravisCI only.');
   process.exit(1);
-}*/
+}
 
 
 /*if not a PR. attempt bump and tag*/
