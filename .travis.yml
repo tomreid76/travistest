@@ -22,5 +22,8 @@ notifications:
     on_success: change
     on_failure: always
 
+after_script:
+ - node ./.travis/fail
+
 after_success:
  - node ./.travis/bump
