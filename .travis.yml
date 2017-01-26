@@ -24,6 +24,3 @@ notifications:
 
 after_script:
  - node ./.travis/fail
-
-after_success:
- - node ./.travis/bump
